@@ -103,6 +103,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+
                             <div class="modal-body">
                                 <form method="POST" action="/user/add-transaction" id="new-transaction-form">
                                     @csrf

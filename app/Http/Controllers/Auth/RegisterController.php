@@ -25,13 +25,6 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
-//
-//    /**
-//     * Where to redirect users after registration.
-//     *
-//     * @var string
-//     */
-//    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -54,8 +47,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users'],
-            'phone' => ['required', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'regex:/^.*[a-zA-Z][0-9].*$/'],
+            'phone' => ['required', 'unique:users', 'numeric', 'regex:/^((07)|(9)|(8)|(7))[0-9]{7}/'],
+            'password' => ['required', 'string', 'min:8', 'regex:/^[a-zA-Z0-9]*([a-zA-Z][0-9]|[0-9][a-zA-Z])[a-zA-Z0-9]*$/'],
             'avatar'   => ['required', 'max:5000']
         ]);
     }
