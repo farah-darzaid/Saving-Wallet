@@ -22,16 +22,27 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    public function redirect()
+    {
+        if (Auth::user()) {
+            return redirect('/home');
+        }else {
+            return view('auth.login');
+        }
+    }
+
+
     public function getDashboard()
     {
         $role = Auth::user()->role;
         switch ($role) {
             case 'admin':
-                return view( 'admin-dashboard');
+                return redirect( '/admin');
                 break;
 
             default:
-                return view('user.user-dashboard');
+                return redirect('/user');
                 break;
         }
     }

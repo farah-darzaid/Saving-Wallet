@@ -8,6 +8,18 @@
         background: #fff;
         height: 300px;
         padding: 12%;
+    }
 
+    .col-lg-3 {
+        background: #fff;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+
+        h4 {
+            margin: 10px auto;
+        }
+        hr{
+            margin-top: 0;
+        }
     }
 }

@@ -10958,3 +10958,17 @@ a.text-dark:focus {
   padding: 12%;
 }
 
+#user .col-lg-3 {
+  background: #fff;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+
+#user .col-lg-3 h4 {
+  margin: 10px auto;
+}
+
+#user .col-lg-3 hr {
+  margin-top: 0;
+}
+

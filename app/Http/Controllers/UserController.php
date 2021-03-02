@@ -1,24 +1,43 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Category;
-use App\UserCategory;
+use App\Transaction;
+use App\UserTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    public function index()
+    {
+        return view('user.user-dashboard');
+
+    }
     public function addTransactionPage()
     {
-        $categories = Category::all();
+        $transactions = Transaction::all()->unique('type');
 
-        return view('user.add-transaction',compact('categories'));
+        return view('user.add-transaction',compact('transactions'));
     }
 
     public function myTransactionPage()
     {
-        return view('user.my-transactions');
+        $my_transactions = UserTransaction::with('transaction')->where('user_id',Auth::id())->get();
+        $incomes = $my_transactions->where('type', 'Income')->sum('value');
+        $expenses = $my_transactions->where('type', 'Expense')->sum('value');
+
+//        foreach ($my_transactions as $my_transaction) {
+//            $my_transaction['transaction'] = Transaction::where('type','Income')->get();
+//            dd($my_transaction['transaction']);
+//        }
+//        $incomes = $my_transactions->where('type', 'Income')->sum('value');
+//        dd($incomes);
+
+//        $my_transactions = Transaction::with('userTransactions.transaction')->get();
+
+//        dd($incomes);
+        return view('user.my-transactions',compact('my_transactions','incomes','expenses'));
     }
 
     public function addTransaction(Request $request)
@@ -29,11 +48,54 @@ class UserController extends Controller
             'value' => 'required'
         ]);
 
-        $user_category = new UserCategory();
-        $user_category->user_id = Auth::id();
-        $user_category->category_id = $request->type;
-        $user_category->save();
+        $transaction = Transaction::where('type',$request->type)->where('name',$request->name)->first();
 
-        return back()->with('success',true);
+        if ($transaction){
+            $user_transaction = UserTransaction::where('user_id',Auth::id())->where('name',$request->name)->first();
+
+            if (!$user_transaction) {
+                $user_transaction = new UserTransaction();
+                $user_transaction->user_id = Auth::id();
+                $user_transaction->type = $request->type;
+                $user_transaction->name = $request->name;
+                $user_transaction->value = $request->value;
+                $user_transaction->save();
+
+                return back()->with('success',true);
+            }else {
+
+                return back()->with('exists',true);
+            }
+        }else{
+            $transaction = new Transaction();
+            $transaction->type = $request->type;
+            $transaction->name = $request->name;
+            $transaction->save();
+
+            $user_transaction = new UserTransaction();
+            $user_transaction->user_id = Auth::id();
+            $user_transaction->type = $request->type;
+            $user_transaction->name = $request->name;
+            $user_transaction->value = $request->value;
+            $user_transaction->save();
+
+            return back()->with('success',true);
+        }
     }
+
+    public function selectTransaction(Request $request)
+    {
+        $transaction_type = Transaction::where('type',$request->type)->get();
+        $html = '';
+        foreach ($transaction_type as $name){
+            $html .= '<option value="'.$name->name.'">'.$name->name.'</option>';
+        }
+
+        return response()->json(['html' => $html]);
+    }
+
+//    public function ()
+//    {
+//
+//    }
 }
