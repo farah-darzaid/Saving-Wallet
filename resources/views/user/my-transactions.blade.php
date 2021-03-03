@@ -11,7 +11,10 @@
 
             <div class="row">
                 <div class="col-lg-8 col-md-10 col-sm-12 mx-auto">
-                    <table class="table table-striped table-dark mt-5">
+                    @if($my_transactions->isEmpty())
+                        <h1 class="my-5">No transactions Yet!</h1>
+                    @else
+                        <table class="table table-striped table-dark mt-5">
                         <thead>
                             <tr>
                                 <th>Transaction Type</th>
@@ -29,6 +32,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @endif
                 </div>
             </div>
 

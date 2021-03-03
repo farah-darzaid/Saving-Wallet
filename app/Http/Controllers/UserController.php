@@ -48,46 +48,45 @@ class UserController extends Controller
             // if value of expense transaction grater than balance can't add it
             if ($request->value > $balance) {
                 return back()->with('no enough money',true);
-            } else {
-                //check if transaction exists in pre-defined transactions
-                $transaction = Transaction::where('type',$request->type)->where('name',$request->name)->first();
-
-                if ($transaction){
-
-                    //check if transaction added previously (by name and value)
-                    $user_transaction = UserTransaction::where('user_id',Auth::id())
-                        ->where('name',$request->name)->where('value',$request->value)->first();
-
-                    if (!$user_transaction) {
-                        $user_transaction = new UserTransaction();
-                        $user_transaction->user_id = Auth::id();
-                        $user_transaction->type = $request->type;
-                        $user_transaction->name = $request->name;
-                        $user_transaction->value = $request->value;
-                        $user_transaction->save();
-
-                        return back()->with('success',true);
-                    }else {
-
-                        return back()->with('exists',true);
-                    }
-                }
-                else{
-                    $transaction = new Transaction();
-                    $transaction->type = $request->type;
-                    $transaction->name = $request->name;
-                    $transaction->save();
-
-                    $user_transaction = new UserTransaction();
-                    $user_transaction->user_id = Auth::id();
-                    $user_transaction->type = $request->type;
-                    $user_transaction->name = $request->name;
-                    $user_transaction->value = $request->value;
-                    $user_transaction->save();
-
-                    return back()->with('success',true);
-                }
             }
+        }
+        //check if transaction exists in pre-defined transactions
+        $transaction = Transaction::where('type',$request->type)->where('name',$request->name)->first();
+
+        if ($transaction){
+
+            //check if transaction added previously (by name and value)
+            $user_transaction = UserTransaction::where('user_id',Auth::id())
+                ->where('name',$request->name)->where('value',$request->value)->first();
+
+            if (!$user_transaction) {
+                $user_transaction = new UserTransaction();
+                $user_transaction->user_id = Auth::id();
+                $user_transaction->type = $request->type;
+                $user_transaction->name = $request->name;
+                $user_transaction->value = $request->value;
+                $user_transaction->save();
+
+                return back()->with('success',true);
+            }else {
+
+                return back()->with('exists',true);
+            }
+        }
+        else{
+            $transaction = new Transaction();
+            $transaction->type = $request->type;
+            $transaction->name = $request->name;
+            $transaction->save();
+
+            $user_transaction = new UserTransaction();
+            $user_transaction->user_id = Auth::id();
+            $user_transaction->type = $request->type;
+            $user_transaction->name = $request->name;
+            $user_transaction->value = $request->value;
+            $user_transaction->save();
+
+            return back()->with('success',true);
         }
 
     }
