@@ -11,7 +11,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@getDashboard');
 
 //Manage user routes
-Route::prefix('user')->middleware(['auth','user'])->group(function () { // add user middleware
+Route::prefix('user')->middleware(['auth','user'])->group(function () {
     Route::get('/','UserController@index');
     Route::get('/add-transaction','UserController@addTransactionPage');
     Route::get('/my-transaction','UserController@myTransactionPage');

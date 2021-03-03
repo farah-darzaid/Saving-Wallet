@@ -6,7 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-//    public function userTransaction(){
-//        return $this->hasMany('App\UserTransaction');
-//    }
+
 }

@@ -12,8 +12,8 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Birthday</th>
+                            <th>Total Incomes</th>
                             <th>Total Expenses</th>
-                            <th>Total Income</th>
                             <th>Wallet Balance</th>
                             <th>Register Date</th>
                         </tr>
