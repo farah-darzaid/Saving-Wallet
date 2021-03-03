@@ -3,7 +3,7 @@
 @section('content')
     <div id="user">
         <div class="container">
-            <div class="row mb-5">
+            <div class="row mb-5 py-2 bg-white">
                 <div class="col-lg-2">
                     <a href="{{ url()->previous() }}">Back</a>
                 </div>
@@ -23,6 +23,12 @@
                         @if(session('exists'))
                             <div class="alert alert-danger">
                                 <span>Transaction Already Exists</span>
+                            </div>
+                        @endif
+
+                        @if(session('no enough money'))
+                            <div class="alert alert-danger">
+                                <span>You dont have enough money for this transaction :( </span>
                             </div>
                         @endif
 

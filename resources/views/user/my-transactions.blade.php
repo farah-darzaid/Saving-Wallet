@@ -3,7 +3,7 @@
 @section('content')
     <div id="user">
         <div class="container">
-            <div class="row mb-5">
+            <div class="row mb-5 py-2 bg-white">
                 <div class="col-lg-2">
                     <a href="{{ url()->previous() }}">Back</a>
                 </div>

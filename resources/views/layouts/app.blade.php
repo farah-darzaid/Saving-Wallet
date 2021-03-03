@@ -48,7 +48,9 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img src="{{ '/storage/'.\Illuminate\Support\Facades\Auth::user()->avatar }}" width="50" style="border-radius: 50px">
+                                    @if(\Illuminate\Support\Facades\Auth::user()->avatar)
+                                        <img src="{{ '/storage/'.\Illuminate\Support\Facades\Auth::user()->avatar }}" width="50" style="border-radius: 50px">
+                                    @endif
                                     {{ Auth::user()->name }}
                                 </a>
 
