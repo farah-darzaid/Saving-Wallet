@@ -3,6 +3,11 @@
 
 ## Introduction
 
+* Developer Info:
+  * Name: Farah Darzaid
+  * Email: Darzaid.farah@gmail.com
+  * Mobile : 0789762334
+    
 * Application name: Saving Wallet.
 * App development environment:
     * PHP 7.2.5
